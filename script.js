@@ -3,6 +3,9 @@ const background = document.querySelector('.background');
 let isJumping = false;
 let position = 0;
 let points = 0;
+let point = document.createElement('div');
+document.body.appendChild(point);
+
 
 function handleKeyUp(event){
     if(event.keyCode === 32){
@@ -37,12 +40,10 @@ function jump(){
 }
 
 function createCactus(){
-    const cactus = document.createElement('div');
+    const cactus = document.createElement('div');    
     let cactusPosition = 1000;
     let randonTime = Math.random() * 6000; //random: cria decimais entre 0 a 1
-
-    console.log
-
+       
     cactus.classList.add('cactus');
     cactus.style.left = 1000 + 'px';
     background.appendChild(cactus);
@@ -53,11 +54,14 @@ function createCactus(){
             background.removeChild(cactus);
             points += 10;
             console.log(points);
+            point.innerHTML = '<h1 class="pontuacao">PONTUAÇÃO</h1>' + points;
+            
+            
         }
         else if(cactusPosition > 0 && cactusPosition < 60 && position < 60){
             // GAME OVER
-            clearInterval(leftInterval);
-            document.body.innerHTML = '<h1 class="game-over">FIM DE JOGO</h1>';
+            clearInterval(leftInterval);                   
+            document.body.innerHTML = '<h1 class="game-over">FIM DE JOGO</h1>';            
             alert("Pressione F5 para retornar ao Jogo!!");
         }
         else{
@@ -68,6 +72,7 @@ function createCactus(){
 
     setTimeout(createCactus, randonTime); // cria cactus em intervalo aleatório
 }
+
 
 createCactus();
 document.addEventListener('keyup', handleKeyUp);
